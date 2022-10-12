@@ -38,12 +38,11 @@ btnGenera.addEventListener('click', function(){
 
 // preleva km ed età inseriti
 function takeData(){
-  if(userAge.value === "minorenne")
-    console.log(calcPrice(parseInt(userKm.value), userAge.value));
-  else if(userAge.value === "maggiorenne")
-    console.log(calcPrice(parseInt(userKm.value), userAge.value));
-  else
-  console.log(calcPrice(parseInt(userKm.value), userAge.value));
+  let price;
+
+  price = calcPrice(parseInt(userKm.value), userAge.value);
+  console.log(price);
+  
 }
 
 // calcola prezzo 
