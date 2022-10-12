@@ -38,11 +38,27 @@ btnGenera.addEventListener('click', function(){
 
 // preleva km ed età inseriti
 function takeData(){
-  let price;
+  const price = calcPrice(parseInt(userKm.value), userAge.value);
+  let offerta;
 
-  price = calcPrice(parseInt(userKm.value), userAge.value);
+  if(userAge.value === "minorenne")
+    offerta = "Sconto under 18";
+  else if(userAge.value === "maggiorenne")
+    offerta = "Sconto over 65";
+  else 
+    offerta = "Nessuno sconto";
+
+  print(userName.value, offerta, myRandom(1,10), myRandom(11111, 99999), price);
   console.log(price);
-  
+}
+
+// stampa dati
+function print(name, offer, carriage, code, price){
+  document.getElementById('outputName').innerHTML = name;
+  document.getElementById('outputOfferr').innerHTML = offer;
+  document.getElementById('outputCarriage').innerHTML = carriage;
+  document.getElementById('outputCode').innerHTML = code;
+  document.getElementById('outputPrice').innerHTML = price + "€";
 }
 
 // calcola prezzo 
@@ -67,4 +83,9 @@ function calcDis(result, age){
     return result * dis_over65;
   
   return 0;
+}
+
+// funzione randomica
+function myRandom(min, max){
+  return Math.round(Math.random() * (max - min)) + min;
 }
