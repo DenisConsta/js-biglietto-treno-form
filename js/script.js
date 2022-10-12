@@ -24,5 +24,48 @@ console.log("Prezzo da pagare : " +  result + "€");
  */
 
 //* ----------------------------------------------------------------
+// buttons
+const btnGenera = document.getElementById('btnGenera');
+const btnAnnulla = document.getElementById('btnAnnulla');
+// inputs
+const userName = document.getElementById('userName');
+const userKm = document.getElementById('userKm');
+const userAge = document.getElementById('userAge');
 
-console.log("hello");
+btnGenera.addEventListener('click', function(){
+  takeData();
+});
+
+// preleva km ed età inseriti
+function takeData(){
+  if(userAge.value === "minorenne")
+    console.log(calcPrice(parseInt(userKm.value), userAge.value));
+  else if(userAge.value === "maggiorenne")
+    console.log(calcPrice(parseInt(userKm.value), userAge.value));
+  else
+  console.log(calcPrice(parseInt(userKm.value), userAge.value));
+}
+
+// calcola prezzo 
+function calcPrice(km, age){
+  const km_price = 0.21;
+  let result = km * km_price;
+  const discount = calcDis(result, age);
+
+  if(discount != 0)
+    result -= discount;
+
+  return result.toFixed(2);
+}
+
+// calcola sconto 
+function calcDis(result, age){
+  const dis_under18 = 0.20, dis_over65 = 0.40;
+
+  if(age === "minorenne")
+    return result * dis_under18;
+  else if(age === "maggiorenne")
+    return result * dis_over65;
+  
+  return 0;
+}
