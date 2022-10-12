@@ -138,11 +138,13 @@ function myRandom(min, max){
   return Math.round(Math.random() * (max - min)) + min;
 }
 
+//reset inputs
 function resetInputs(){
   userName.value = "";
   userKm.value = "";
 }
 
+//reset errore
 function resetError(error){
   error.innerHTML = "";
 }
