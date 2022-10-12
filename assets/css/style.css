@@ -1,0 +1,53 @@
+
+:root{
+  --my-red: #B91450;
+}
+
+/* Utilities */
+
+.debug{
+  background-color: bisque;
+  border: 1px solid firebrick;
+}
+
+
+body> .container-fluid{
+  background-color: var(--my-red);
+  min-height: 100vh;
+}
+
+.card,
+form{
+  border-radius: 1rem;
+}
+
+.ticket .row,
+.ticket .col{
+  min-height: 300px;
+}
+
+.my-col label{
+  color: var(--my-red);
+}
+
+.my-col input,
+select{
+  max-width: 70%;
+  border-color: var(--my-red);
+  border-radius: .5rem;
+}
+
+.my-btns .btn{
+  background-color: lightgrey;
+  border-color: var(--my-red);
+  color: var(--my-red);
+}
+
+.my-bg-grey{
+  background-color: grey;
+}
+
+.my-border{
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
