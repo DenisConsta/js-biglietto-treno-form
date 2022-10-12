@@ -32,8 +32,24 @@ const userName = document.getElementById('userName');
 const userKm = document.getElementById('userKm');
 const userAge = document.getElementById('userAge');
 
+
 btnGenera.addEventListener('click', function(){
-  takeData();
+  if(notEmpty(userName))
+    resetError(document.getElementById('error1'));
+  if(validNumber(userKm) )
+    resetError(document.getElementById('error2'));
+  if(notEmpty(userKm))
+    resetError(document.getElementById('error2'));
+
+  if(notEmpty(userName) && validNumber(userKm) && notEmpty(userKm)){
+    takeData();
+    resetInputs();
+  }
+});
+
+btnAnnulla.addEventListener('click', function () {
+  resetInputs();
+  print("", "", "", "", "");
 });
 
 // preleva km ed età inseriti
@@ -48,7 +64,7 @@ function takeData(){
   else 
     offerta = "Nessuno sconto";
 
-  print(userName.value, offerta, myRandom(1,10), myRandom(11111, 99999), price);
+  print(userName.value, offerta, myRandom(1,10), myRandom(11111, 99999), price + "€");
   console.log(price);
 }
 
@@ -58,7 +74,39 @@ function print(name, offer, carriage, code, price){
   document.getElementById('outputOfferr').innerHTML = offer;
   document.getElementById('outputCarriage').innerHTML = carriage;
   document.getElementById('outputCode').innerHTML = code;
-  document.getElementById('outputPrice').innerHTML = price + "€";
+  document.getElementById('outputPrice').innerHTML = price;
+}
+
+// funzione di controllo
+function validNumber(inputName){
+  let check = true;
+  
+  if(isNaN(inputName.value)){
+    setError(inputName, "Questo campo accetta solo numeri");
+    check = false;
+  }
+
+  
+  return check;
+}
+
+//funzione di controllo 
+function notEmpty(inputName){
+  let check = true;
+
+  if(inputName.value === ''){
+    setError(inputName, "Questo campo non può essere vuoto");
+    check = false;
+  }
+
+  return check;
+}
+
+// funzione che gestisce i messaggi di errore
+function setError(input, messagge){
+  let parent = input.parentElement;
+  const error = parent.querySelector('.error');
+  error.innerHTML = messagge;
 }
 
 // calcola prezzo 
@@ -89,3 +137,15 @@ function calcDis(result, age){
 function myRandom(min, max){
   return Math.round(Math.random() * (max - min)) + min;
 }
+
+function resetInputs(){
+  userName.value = "";
+  userKm.value = "";
+}
+
+function resetError(error){
+  error.innerHTML = "";
+}
+
+
+
