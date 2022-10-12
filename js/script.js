@@ -31,7 +31,7 @@ const btnAnnulla = document.getElementById('btnAnnulla');
 const userName = document.getElementById('userName');
 const userKm = document.getElementById('userKm');
 const userAge = document.getElementById('userAge');
-
+resetInputs();
 
 btnGenera.addEventListener('click', function(){
   if(notEmpty(userName))
@@ -85,7 +85,6 @@ function validNumber(inputName){
     setError(inputName, "Questo campo accetta solo numeri");
     check = false;
   }
-
   
   return check;
 }
