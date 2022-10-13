@@ -1,29 +1,4 @@
-/* 
-//* BASIC script
 
-const user_km = parseInt(prompt("Quanti KM vuoi percorrere ? "));
-const user_age = parseInt(prompt("Inserisci la tua età"));
-
-// costo x km percorso 
-const km_price = 0.21;
-// sconti legati all'età
-const dis_under18 = 0.20, dis_over65 = 0.40;
-// calcolo del prezzo
-let result = user_km * km_price;
-
-// controllo se l'età dell'user è soggetta a sconti 
-if(user_age < 18)
-  result -= result * dis_under18;
-else if (user_age >= 65)
-  result -= result * dis_over65;
-
-// arrotondamento delle ultime due cifre decimali 
-result = result.toFixed(2);
-console.log("Prezzo da pagare : " +  result + "€");
-
- */
-
-//* ----------------------------------------------------------------
 // buttons
 const btnGenera = document.getElementById('btnGenera');
 const btnAnnulla = document.getElementById('btnAnnulla');
@@ -33,23 +8,21 @@ const userKm = document.getElementById('userKm');
 const userAge = document.getElementById('userAge');
 resetInputs();
 
+// listeners
 btnGenera.addEventListener('click', function(){
-  if(notEmpty(userName))
-    resetError(document.getElementById('error1'));
-  if(validNumber(userKm) )
-    resetError(document.getElementById('error2'));
-  if(notEmpty(userKm))
-    resetError(document.getElementById('error2'));
-
-  if(notEmpty(userName) && validNumber(userKm) && notEmpty(userKm)){
+  if(myCheck()){
     takeData();
     resetInputs();
+    document.querySelector('.ticket').classList.remove('hide');
+    document.querySelector('.ticket').classList.add('show');
   }
 });
 
 btnAnnulla.addEventListener('click', function () {
   resetInputs();
   print("", "", "", "", "");
+  document.querySelector('.ticket').classList.remove('show');
+  document.querySelector('.ticket').classList.add('hide');
 });
 
 // preleva km ed età inseriti
@@ -59,7 +32,7 @@ function takeData(){
 
   if(userAge.value === "minorenne")
     offerta = "Sconto under 18";
-  else if(userAge.value === "maggiorenne")
+  else if(userAge.value === "over")
     offerta = "Sconto over 65";
   else 
     offerta = "Nessuno sconto";
@@ -77,28 +50,36 @@ function print(name, offer, carriage, code, price){
   document.getElementById('outputPrice').innerHTML = price;
 }
 
-// funzione di controllo
-function validNumber(inputName){
-  let check = true;
-  
-  if(isNaN(inputName.value)){
-    setError(inputName, "Questo campo accetta solo numeri");
-    check = false;
+// funzione di controllo 
+function myCheck(){
+  let nameCheck = true, kmCheck = true;
+
+  if(userName.value === ''){
+    setError(userName, "Il campo non può essere vuoto !");
+    nameCheck = false;
   }
-  
-  return check;
-}
-
-//funzione di controllo 
-function notEmpty(inputName){
-  let check = true;
-
-  if(inputName.value === ''){
-    setError(inputName, "Questo campo non può essere vuoto");
-    check = false;
+  else if (!isNaN(userName.value)){
+    setError(userName, "Questo campo NON accetta numeri!");
+    nameCheck = false;
+  }else{
+    setError(userName, "");
   }
 
-  return check;
+  if(userKm.value === ''){
+    setError(userKm, "Il campo non può essere vuoto !");
+    kmCheck = false;
+  }
+    
+  else if (isNaN(userKm.value)){
+    setError(userKm, "Questo campo accetta solo numeri!");
+    kmCheck = false;
+  }else
+    setError(userKm, "");
+
+  if(nameCheck && kmCheck)
+    return true;
+  else
+    return false;
 }
 
 // funzione che gestisce i messaggi di errore
@@ -126,7 +107,7 @@ function calcDis(result, age){
 
   if(age === "minorenne")
     return result * dis_under18;
-  else if(age === "maggiorenne")
+  else if(age === "over")
     return result * dis_over65;
   
   return 0;
@@ -141,11 +122,6 @@ function myRandom(min, max){
 function resetInputs(){
   userName.value = "";
   userKm.value = "";
-}
-
-//reset errore
-function resetError(error){
-  error.innerHTML = "";
 }
 
 

@@ -23,7 +23,7 @@ form{
 
 .ticket .row,
 .ticket .col{
-  min-height: 300px;
+  min-height: 150px;
 }
 
 .my-col label{
@@ -35,6 +35,12 @@ select{
   max-width: 70%;
   border-color: var(--my-red);
   border-radius: .5rem;
+}
+
+input:focus,
+select:focus{
+  background-color: var(--my-red);
+  color: white;
 }
 
 .my-btns .btn{
@@ -54,4 +60,12 @@ select{
 
 .error{
   color: red;
+}
+
+.show{
+  display: block;
+}
+
+.hide{
+  display: none;
 }
